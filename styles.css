@@ -1,10 +1,11 @@
+/* Global Styles */
 body {
     font-family: Arial, sans-serif;
     text-align: center;
     margin: 0;
     padding: 0;
     background: url(./images/us.jpg) 0 0 no-repeat;
-    background-color: rgba(255,204,203,0.8);
+    background-color: rgba(255, 204, 203, 0.8);
     background-blend-mode: lighten;
     background-size: cover;
     object-fit: cover;
@@ -15,18 +16,26 @@ body {
 
 header {
     background-color: #fff;
-    padding: 5px 10px 10px 10px;
+    padding: 5px 10px 10px;
     border-radius: 10px;
     max-width: 500px;
     width: 100%;
     margin: 20px auto 0;
 }
 
-h1 {
+h1, h2 {
     color: #d63384;
-    font-size: 24px;
     margin-top: 20px;
 }
+
+h1 {
+    font-size: 24px;
+}
+
+h2 {
+    font-size: 18px;
+}
+
 #pairsLeftMessage {
     color: #d63384;
 }
@@ -57,9 +66,8 @@ h1 {
     align-items: center;
     cursor: pointer;
     border-radius: 10px;
-    transition: transform 0.3s;
+    transition: transform 0.3s, background 0.2s ease-in-out;
     position: relative;
-    transition: background 0.2s ease-in-out, transform 0.2s ease-in-out;
 }
 
 .card:hover {
@@ -90,6 +98,7 @@ h1 {
     color: #d63384;
 }
 
+.cta-btn,
 #restartButton {
     margin-top: 15px;
     padding: 10px 20px;
@@ -99,7 +108,7 @@ h1 {
     border: none;
     cursor: pointer;
     border-radius: 5px;
-    transition: background 0.3s ease-in-out, transform 0.2s ease-in-out;
+    transition: background 0.3s, transform 0.2s;
 }
 
 #restartButton:hover {
@@ -107,27 +116,51 @@ h1 {
     transform: scale(1.1); /* Slight button pop effect */
 }
 
-/* === Responsive Design === */
-@media (max-width: 600px) {
+/* Heart Shape */
+.heart-shape {
+    width: 380px;
+    height: 280px;
+    aspect-ratio: 1;
+    object-fit: cover;
+    --_m: radial-gradient(#000 69%, #0000 70%) 84.5%/50%;
+    -webkit-mask-box-image: var(--_m);
+    mask-border: var(--_m);
+    clip-path: polygon(-41% 0, 50% 91%, 141% 0);
+    margin: 30px auto 0;
+    min-height: 380px;
+    display: grid;
+    grid-auto-flow: column;
+    place-content: center;
+    gap: 30px;
+    background: url(./images/ha.jpg) 0 -50px no-repeat;
+    background-size: 100%;
+    background-position: fixed;
+    object-fit: contain;
+    filter: drop-shadow(0 0 10px #ff3e60);
+}
 
+/* Fallback for better support of mask-border */
+@supports not (-webkit-mask-box-image: var(--_m)) {
+    .heart-shape {
+        --_m: radial-gradient(at 70% 31%, #000 29%, #0000 30%),
+             radial-gradient(at 30% 31%, #000 29%, #0000 30%),
+             linear-gradient(#000 0 0) bottom/100% 50% no-repeat;
+        -webkit-mask: var(--_m);
+        mask: var(--_m);
+    }
+}
+
+/* === Responsive Design === */
+
+/* For small screens */
+@media (max-width: 600px) {
     body {
-        font-family: Arial, sans-serif;
-        text-align: center;
-        margin: 0;
-        padding: 0;
-        background: url(./images/us.jpg) 0 0 no-repeat;
         background-position: fixed;
-        background-color: rgba(255,204,203,0.8);
-        background-blend-mode: lighten;
-        background-size: cover;
-        object-fit: cover;
-        width: 100%;
         height: 100vh;
-        background-position: 50% 50%;
     }
 
     .game-board {
-        grid-template-columns: repeat(4, 1fr); /* 3 columns on small screens */
+        grid-template-columns: repeat(4, 1fr); /* 4 columns on small screens */
         max-width: 380px;
     }
 
@@ -142,8 +175,13 @@ h1 {
     #restartButton {
         font-size: 14px;
     }
+
+    .image-baby {
+        height: 50vh;
+    }
 }
 
+/* For very small screens */
 @media (max-width: 400px) {
     .game-board {
         grid-template-columns: repeat(2, 1fr); /* 2 columns on very small screens */

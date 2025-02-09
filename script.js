@@ -7,6 +7,10 @@ let board = document.getElementById("gameBoard");
 let statusMessage = document.getElementById("statusMessage");
 let pairsLeftMessage = document.getElementById("pairsLeftMessage");
 
+// Sound effects
+const correctSound = new Audio('./audio/correct.mp3'); // Path to the correct match sound
+const incorrectSound = new Audio('./audio/incorrect.mp3'); // Path to the incorrect match sound
+
 // Shuffle function
 function shuffle(array) {
     return array.sort(() => 0.5 - Math.random());
@@ -44,7 +48,7 @@ function flipCard() {
     if (flippedCards.length < 2 && !this.classList.contains("flipped")) {
         this.classList.add("flipped");
         flippedCards.push(this);
-        
+
         if (flippedCards.length === 2) {
             setTimeout(checkMatch, 500);
         }
@@ -58,10 +62,12 @@ function checkMatch() {
     if (card1.dataset.image === card2.dataset.image) {
         matchedCards.push(card1, card2);
         animateStatusMessage("Great! It's a match!");
+        correctSound.play(); // Play correct sound
     } else {
         card1.classList.remove("flipped");
         card2.classList.remove("flipped");
         animateStatusMessage("Try again!");
+        incorrectSound.play(); // Play incorrect sound
     }
 
     flippedCards = [];
@@ -69,7 +75,7 @@ function checkMatch() {
 
     // Check for win
     if (matchedCards.length === cards.length) {
-        animateStatusMessage("Congratulations! You won!");
+        showWinScreen();
     }
 }
 
@@ -86,10 +92,40 @@ function animateStatusMessage(message) {
     }, 500);
 }
 
+// Show win screen with delay and fade-out effect
+function showWinScreen() {
+    // Fade out the game board and status message before showing win screen
+    board.style.transition = "opacity 1s ease-out";
+    statusMessage.style.transition = "opacity 1s ease-out";
+    board.style.opacity = "0";
+    statusMessage.style.opacity = "0";
+
+    // Delay to allow fade-out effect
+    setTimeout(() => {
+        // Play MP3 sound
+        let audio = new Audio('./audio/spin.mp3'); // Replace with the correct file path
+        audio.loop = true;  // Enable looping
+        audio.play();
+
+        // Show win screen
+        document.body.innerHTML = "<div style='text-align:center; font-size:24px; margin-top:120px;'>" +
+            "<h1>You’re like a WiFi signal—sometimes weak, but I still can’t live without you.</h1><div class='image-baby-wrapper'><span class='heart-shape'></span></div>" +
+            "<h2>Happy Valentines!!</h2><button onclick='location.reload()' class='cta-btn'>Play Again</button>" +
+            "</div>";
+
+        // Fade in the win screen content
+        const winScreen = document.querySelector('div');
+        winScreen.style.opacity = "0";
+        winScreen.style.transition = "opacity 1s ease-in";
+        winScreen.style.opacity = "1";
+
+    }, 2300);  // Delay for 1 second before showing the win screen
+}
+
 // Update pairs left message
 function updatePairsLeft() {
     let pairsLeft = (cards.length / 2) - (matchedCards.length / 2);
-    pairsLeftMessage.textContent = `${pairsLeft} pairs left to find `;
+    pairsLeftMessage.textContent = `Pairs left to find: ${pairsLeft}`;
 }
 
 // Restart game
