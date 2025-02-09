@@ -132,7 +132,7 @@ h2 {
     grid-auto-flow: column;
     place-content: center;
     gap: 30px;
-    background: url(./images/her.jpg) 0 -11px no-repeat;
+    background: url(./images/ha.jpg) 0 -50px no-repeat;
     background-size: 100%;
     background-position: fixed;
     object-fit: contain;
@@ -201,7 +201,6 @@ h2 {
         padding: 8px 15px;
     }
 }
-
 
 .credit {
     margin-top: 15px;
