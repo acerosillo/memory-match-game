@@ -1,3 +1,13 @@
+// Array of random win messages
+const winMessages = [
+    "You’re like a WiFi signal—sometimes weak, but I still can’t live without you.",
+    "I’d be lost without you... just like my will to live some days.",
+    "If love is a battlefield, then we’re both the casualties.",
+    "I don’t need therapy; I have you... oh wait, now I probably do need therapy.",
+    "I’d say you’re my sunshine, but you’re more like that flickering light in the basement that I keep ignoring."
+];
+
+
 const images = ["1.jpg", "2.jpg", "3.jpg", "4.jpg", "5.jpg", "6.jpg", "7.jpg", "8.jpg"];
 let cards = [...images, ...images]; // Duplicate images for pairs
 let shuffledCards = [];
@@ -107,9 +117,12 @@ function showWinScreen() {
         audio.loop = true;  // Enable looping
         audio.play();
 
+        // Randomly select a win message
+        const randomMessage = winMessages[Math.floor(Math.random() * winMessages.length)];
+
         // Show win screen
         document.body.innerHTML = "<div style='text-align:center; font-size:24px; margin-top:120px;'>" +
-            "<h1>You’re like a WiFi signal—sometimes weak, but I still can’t live without you.</h1><div class='image-baby-wrapper'><span class='heart-shape'></span></div>" +
+            `<h1 class='random-msg'>${randomMessage}</h1><div class='image-baby-wrapper'><span class='heart-shape'></span></div>` +
             "<h2>Happy Valentines!!</h2><button onclick='location.reload()' class='cta-btn'>Play Again</button>" +
             "</div>";
 

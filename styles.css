@@ -132,7 +132,7 @@ h2 {
     grid-auto-flow: column;
     place-content: center;
     gap: 30px;
-    background: url(./images/ha.jpg) 0 -50px no-repeat;
+    background: url(./images/her.jpg) 0 -11px no-repeat;
     background-size: 100%;
     background-position: fixed;
     object-fit: contain;
@@ -200,4 +200,17 @@ h2 {
         font-size: 12px;
         padding: 8px 15px;
     }
+}
+
+
+.credit {
+    margin-top: 15px;
+    display: block;
+}
+
+.credit a{
+   color: #d63384;
+   text-decoration: none;
+   text-transform: uppercase;
+   font-size: 10px;
 }
